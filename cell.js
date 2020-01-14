@@ -6,6 +6,7 @@ function Cell(i, j, w) {
   this.w = w; //width
   this.neighborCount = 0;
 
+  this.flagged = false;
   this.bomb = false;
   this.opened = false;
 }
@@ -26,6 +27,19 @@ Cell.prototype.show = function () {
         fill(0);
         text(this.neighborCount, this.x + this.w * 0.5, this.y + this.w - 5);
       }
+    }
+  }
+};
+
+Cell.prototype.flag = function () {
+  if(!this.opened){
+    this.flagged = !this.flagged;
+    if (this.flagged) {
+      console.log("flagged");
+      fill('red')
+      triangle(this.x, this.y, this.x + this.w, this.y + this.w, this.x + (this.w/2), (this.x +this.w)+ (this.y+(this.w/2)));
+    } else {
+      console.log("not flagged");
     }
   }
 };

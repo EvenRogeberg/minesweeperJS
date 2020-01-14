@@ -64,10 +64,17 @@ function mousePressed() {
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < columns; j++) {
       if(grid[i][j].contains(mouseX, mouseY)) {
-        grid[i][j].open();
+        if(mouseButton === LEFT){
+          grid[i][j].open();
 
-        if (grid[i][j].bomb) {
-          gameOver();
+          if (grid[i][j].bomb) {
+            gameOver();
+          }
+        }
+
+        if (mouseButton === RIGHT) {
+          console.log("Pressed RIGHT");
+            grid[i][j].flag();
         }
       }
     }
