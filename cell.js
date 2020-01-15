@@ -25,9 +25,13 @@ Cell.prototype.show = function () {
       if (this.neighborCount > 0) {
         textAlign(CENTER);
         fill(0);
+        textSize(14);
         text(this.neighborCount, this.x + this.w * 0.5, this.y + this.w - 5);
       }
     }
+  } else if (this.flagged) {
+    fill('red')
+    triangle(this.x, this.y+this.w, this.x+ (this.w*0.5), this.y, this.x+this.w,this.y+this.w );
   }
 };
 
@@ -36,8 +40,6 @@ Cell.prototype.flag = function () {
     this.flagged = !this.flagged;
     if (this.flagged) {
       console.log("flagged");
-      fill('red')
-      triangle(this.x, this.y, this.x + this.w, this.y + this.w, this.x + (this.w/2), (this.x +this.w)+ (this.y+(this.w/2)));
     } else {
       console.log("not flagged");
     }
@@ -73,10 +75,14 @@ Cell.prototype.contains = function (x, y) {
 };
 
 Cell.prototype.open = function () {
-  this.opened = true;
-  if (this.neighborCount == 0) {
+  if (!this.flagged) {
+    this.opened = true;
+    if (this.neighborCount == 0) {
       //floodFill()
       this.floodFill();
+    }
+  } else {
+    console.log("cant open a flagged cell");
   }
 };
 
